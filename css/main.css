@@ -44,7 +44,16 @@ body {
     margin: 0 auto;
 }
 
+.top-text {
+    padding-bottom: 30px;
+}
 
+#canvas {
+    position: fixed;
+    z-index: -100;
+    width: 100%;
+    height: 100%;
+}
 
 /* Header
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -155,12 +164,139 @@ p.mono {
     font-family: 'Source Code Pro', serif;
 }
 
+/* Buttons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 0px;
+  border: 1px solid black;
+  cursor: pointer;
+  box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+
+
+/* Forms
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  /* Rectangle 4: */
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  font-family: "Source Code Pro", monospace;
+  box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.14);
+  border-radius: 0px;
+  transition: box-shadow 0.14s ease-out;
+  box-sizing: border-box; }
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; }
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  box-shadow: 0px 6px 24px -2px rgba(0,0,0,0.12);
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 600; }
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+
 
 /* Main Structure
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .c-one {
     border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: rgba(245, 245, 245, 0.6);
     padding-bottom: 520px;
 }
 
@@ -200,6 +336,10 @@ p.mono {
     background-color: white;
 }
 
+.main-section .section-content {
+    padding-top: 40px;
+}
+
 .section-label {
     font-family: 'Source Code Pro', serif;
     font-size: 1rem;
@@ -211,6 +351,16 @@ p.mono {
 
 .full-section {
     width: 100%;
+}
+
+.dotted-divider {
+    background-image: linear-gradient(to right, black 20%, rgba(255,255,255,0.6) 0%);
+    opacity: 0.3;
+    background-position: bottom;
+    background-size: 8px 4px;
+    background-repeat: repeat-x;
+    height: 2px;
+    margin: 40px auto;
 }
 
 /* Envelope Area
@@ -325,6 +475,21 @@ p.mono {
     -webkit-box-shadow: 0px 3px 25px rgba(0,0,0,0.18);
 }
 
+.end-egg-box {
+    position: relative;
+    height: 100%;
+}
+
+.end-egg {
+    position: absolute;
+    width: 100%;
+    bottom: 180px;
+    color: rgba(255, 254, 249, 0.3);
+    letter-spacing: 0.6px;
+    text-align: center;
+
+}
+
 .letter {
     max-width: 1140px;
     width: 92%;
@@ -362,19 +527,109 @@ p.mono {
     width: 50%;
 }
 
+.s-profile {
+    padding-bottom: 40px;
+}
+
 /* #001 - Bits & Bytes */
 
 .t-low-level {
     max-width: 340px;
+    padding-bottom: 40px;
 }
 
 .big-nums {
-    max-width: 340px;
+    max-width: 200px;
 }
 
 .big-binary {
-    width: 60%;
-    font-size: 9rem;
+    width: 78%;
+    font-size: 10rem;
+}
+
+.t-acode {
+    vertical-align: center;
+    line-height: 1.7;
+    padding: 0 10px;
+}
+
+.t-equals {
+    padding-bottom: 30px;
+}
+
+.t-abyte {
+    margin-bottom: -6px;
+}
+
+.t-abyte-box {
+    margin-left: 20px;
+}
+
+
+/* Data Unit Tip */
+
+.t-dataunit {
+
+}
+
+.data-unit-box {
+    background-color: white;
+    padding: 10px;
+    border-radius: 2px;
+    margin-left: 10px;
+}
+
+.data-unit {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+/* #002 - What's in a name */
+
+.name-input-box {
+    margin-top: 40px;
+    max-width:
+}
+
+.name-input {
+    margin-right: -1px;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+.name-button {
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.08);
+    font-size: 2rem;
+    width: 80px;
+}
+
+.name-calc {
+    padding-bottom: 30px;
+}
+
+/* #003 - A profile */
+
+.t-fbtop {
+    padding-bottom: 60px;
+}
+
+.mono.breakdown {
+    font-size: 1.2rem;
+    line-height: 1.45;
+}
+
+.t-megabyte {
+    padding-top: 12px;
+}
+
+
+/* #004 - Datatown, USA */
+
+#data-vis {
+    max-width: 100%;
+    min-height: 500px;
 }
 
 
@@ -383,6 +638,12 @@ p.mono {
 
 @media (max-width: 400px) {
     .flex-grid {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
+    .col.half-col {
+        width: 100%;
     }
 }

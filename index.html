@@ -16,6 +16,8 @@
 
 <body>
 
+    <canvas id="canvas"></canvas>
+
     <div class="container c-one">
 
         <header class="">
@@ -82,15 +84,31 @@
                 <div class="section-content">
                     <div class="flex-center">
                         <h3 class="center-textbox t-low-level">At a low-level, all data is just made up ‘<strong>bits</strong>’ that are either true (1) or false (0)</h3>
-                        <div class="flex-center big-nums flex-grid">
+                        <div class="flex-center big-nums flex-grid mono">
                             <div class="col half-col">
                                 <h2 class="center-textbox big-binary code">1</h2>
                                 <p class="center-textbox">true</p>
                             </div>
                             <div class="col half-col">
-                                <h2 class="center-textbox big-binary code">2</h2>
+                                <h2 class="center-textbox big-binary code">0</h2>
                                 <p class="center-textbox">false</p>
                             </div>
+                        </div>
+                    </div>
+                    <div class="dotted-divider"></div>
+                    <div class="flex-center flex-grid t-equals">
+                        <div class="col half-col flex-c-vertical">
+                            <div class="flex-grid flex-center">
+                                <h3 class="code t-acode">01000001</h3>
+                                <div class="col flex-center center-textbox t-abyte-box">
+                                    <h3 class="t-abyte">= 'A'</h3>
+                                    <p class="light-text mono">1 byte</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col half-col">
+                            <h4 class="">these eight ‘bits’ together represent the letter ‘A’</h4>
+                            <h4 class="light-text">eight ‘bits’ makes a ‘byte’!</h4>
                         </div>
                     </div>
                 </div>
@@ -104,9 +122,20 @@
 
         <section class="flex-grid flex-center">
             <div class="section-box">
-                <div class="open-frame"></div>
-                <div class="center-textbox section-content">
+                <div class="open-frame"><p class="section-label">Tip</p></div>
+                <div class="auto-width center-textbox section-content">
+                    <div class="auto-width col">
+                        <h3 class="center-textbox t-dataunit">From now on: </h3>
+                    </div>
+                    <div class="auto-width col">
+                        <div class="data-unit-box flex-c-vertical flex-center">
+                            <svg class="auto-width data-unit" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+                              <rect width="12" height="12" x="332" y="11" fill="#FF1C09" fill-rule="evenodd" transform="rotate(-180 172 11.5)" rx="1"/>
+                            </svg>
+                            <p class="mono auto-width "> = data unit</p>
 
+                        </div>
+                    </div>
 
 
                 </div>
@@ -120,9 +149,25 @@
 
         <section class="flex-grid flex-center">
             <div class="section-box main-section full-section">
-
                 <div class="open-frame"><p class="section-label">#002 - Whats in a name?</p></div>
                 <div class="center-textbox section-content">
+
+                    <div class="flex-center">
+                        <h3 class="center-textbox">Let’s put this in perspective —</h3>
+                        <h3 class="center-textbox light-text">How much data does your name use?</h3>
+                    </div>
+
+                    <div class="name-calc">
+                        <div class="name-input-box flex-center flex-c-vertical">
+                            <input class="name-input" type="text" name="name" placeholder="Enter Name…">
+                            <button class="name-button flex-c-vertical">
+                                <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="close-frame"></div>
@@ -137,7 +182,43 @@
             <div class="section-box main-section">
 
                 <div class="open-frame"><p class="section-label">#003 - A profile</p></div>
-                <div class="auto-width center-textbox section-content">
+                <div class="section-content s-profile">
+
+                    <div class="flex-center t-fbtop">
+                        <h3 class="center-textbox">Now lets say you have a facebook profile.</h3>
+                        <h3 class="center-textbox light-text">How much data does that use?</h3>
+                    </div>
+
+                    <div class="flex-grid flex-center flex-c-vertical">
+                        <div class="col half-col fb-img center-textbox">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="171" height="192" viewBox="0 0 171 192">
+                              <g fill="none" fill-rule="evenodd">
+                                <rect width="171" height="65" fill="#E3E3E3" rx="1"/>
+                                <rect width="35" height="35" x="5" y="36" fill="#CCCCCC" rx="1"/>
+                                <rect width="66" height="9" x="1" y="77" fill="#E3E3E3"/>
+                                <rect width="66" height="47" x="1" y="89" fill="#E3E3E3"/>
+                                <rect width="66" height="52" x="1" y="140" fill="#E3E3E3"/>
+                                <rect width="103" height="30" x="68" y="77" fill="#CCCCCC"/>
+                                <rect width="103" height="82" x="68" y="110" fill="#CCCCCC"/>
+                                <rect width="33" height="4" x="43" y="57" fill="#CCCCCC" rx="1"/>
+                              </g>
+                            </svg>
+                        </div>
+                        <div class="col half-col">
+                            <p class="light-text breakdown mono">profile photo +</p>
+                            <p class="light-text breakdown mono">name +</p>
+                            <p class="light-text breakdown mono">birthday +</p>
+                            <p class="light-text breakdown mono">post about your cats +</p>
+                            <p class="light-text breakdown mono">3 photos of said cats +</p>
+
+                            <div class="t-megabyte">
+                                <h3 class="auto-width">= ~1 megabyte</h3>
+                                <svg class="auto-width data-unit" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+                                  <rect width="12" height="12" x="332" y="11" fill="#4F94E2" fill-rule="evenodd" transform="rotate(-180 172 11.5)" rx="1"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="close-frame"></div>
@@ -152,8 +233,15 @@
             <div class="section-box main-section full-section">
 
                 <div class="open-frame"><p class="section-label">#004 - Datatown, USA</p></div>
-                <div class="center-textbox section-content">
-
+                <div class="center-textbox section-content s-data-vis">
+                    <div class="flex-center t-fbtop">
+                        <h3 class="center-textbox">How about every profile in town?</h3>
+                        <h3 class="center-textbox light-text">Let's find out:</h3>
+                    </div>
+                    <div>
+                        <svg id="data-vis" width="414">
+                        </svg>
+                    </div>
                 </div>
                 <div class="close-frame"></div>
             </div>
@@ -184,7 +272,10 @@
                         </svg>
 
                         <div class="envelope-body">
-                    </div>
+                            <div class="end-egg-box">
+                                <h4 class="end-egg">What does a baby computer call it's father? Data.</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -241,6 +332,9 @@
             }
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
