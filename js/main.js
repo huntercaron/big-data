@@ -1,5 +1,5 @@
 function runCanvasHearts() {
-	let canvas = document.getElementById("canvas");
+	let canvas = document.getElementById("heart-canvas");
 	let ctx = canvas.getContext("2d");
 
 	let width  = window.innerWidth;
@@ -53,7 +53,7 @@ function runCanvasHearts() {
 				Math.floor(Math.random() * (10 - 2 + 1) + 4),
 				0.2,
 				"rgba(234,65,65,0." +
-				Math.floor(Math.random() * (2 - 0 + 1)) +")");
+				Math.floor(Math.random() * (3 - 0 + 1)) +")");
 
 			hearts.push(h);
 	}
@@ -79,257 +79,436 @@ function runCanvasHearts() {
 	init();
 }
 
-function runDataVis() {
+function runCircleCanvas() {
+	let canvas = document.getElementById("circle-canvas");
+	let ctx = canvas.getContext("2d");
 
-    var width = 414;
-    var height = 500;
+	let width  = 850;
+	let height = 850;
+	let inc = 0;
+	let pul = 0;
+	let pulseUp = true;
+	let ids = [];
+	let often = 0;
+	let offsets = [];
 
-    var s = Snap("#data-vis");
-    var g = s.group();
+	function makeId(len) {
+    	var text = "";
+   		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    var toggle = true;
+  		for(let i = 0; i < len; i++)
+        	text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-    function generateGrid(quantity, size, padding, color, holder) {
-    	let grid = [];
-    	let rows = Math.floor(Math.sqrt(quantity));
-        s.width = rows*padding;
-    	grid.rows = rows;
-    	grid.pad = padding;
-    	grid.size = size;
-    	let hold = s.rect(holder.x, holder.y, size, size, 2).attr({ fill: color, opacity: 0 });
-        g.add(hold);
-        grid.holder = hold;
-    	grid.holder.intX = Math.floor(rows/2)*padding;
-    	grid.holder.intY = 0;
-
-
-    	for (let x = 0; x < rows; x++ ) {
-    		for (let y = 0; y < rows; y++) {
-    			let r = null;
-    			r = s.rect((x*padding), (y*padding), size, size, 2).attr({
-    					fill: color
-    			});
-    			r.pad = padding;
-    			r.intX = x;
-    			r.intY = y;
-    			r.intColor = color;
-    			grid.push(r);
-                g.add(r);
-    		}
-    	}
-        g.attr("transform", "translate(" + 0 + ", 0)");
-    	return grid;
-    }
-
-    var levels = [{color: "red"}, {color: "pink"}, {color: "teal"}, {color: "blue"}, {color: "orange"}, {color: "purple"}];
-    var cLevel = 0;
-
-    var rects = generateGrid(500, 15, 19, levels[cLevel].color, {x: 0, y: 0});
-
-    s.rect(20, height-60, 40, 40, 6).attr({ fill: "pink"}).node.onclick = function () {
-    	animateLevelDown(rects);
-    };
-
-    s.rect(width-60, height-60, 40, 40, 6).attr({ fill: "limegreen"}).node.onclick = function () {
-    	holderPrime(rects, width/2-10, 450);
-    	setTimeout(function() { animateLevelUp(rects) }, 400);
-    };
-
-    function animateLevelDown(list) {
-    	cLevel--;
-    	fadeGrid(list, 0)
-    	collapseGrid(list);
-    	setTimeout(function() { holderDive(list, levels[cLevel].color); }, 600);
-    	setTimeout(function() { expandGrid(list, levels[cLevel].color); }, 650);
-
-    }
+    	return text;
+	}
 
 
-    function animateLevelUp(list) {
-    	collapseGrid(list);
-    	holderPop(list, levels[cLevel+1].color)
-    	setTimeout(function() { fadeGrid(list, 0) }, 400);
-    	setTimeout(function() { holderCorner(list); }, 2000);
-    	cLevel++;
-    	setTimeout(function() {
-    		populateGrid(list, levels[cLevel].color);
-    		if (cLevel+1 == levels.length)
-    			cLevel = 0;
-    	}, 2480);
+	for (let i = 0; i < 91; i++) {
+		offsets.push(Math.floor(Math.random()*11+3));
+	}
 
-    }
+	for (let i = 0; i < 20; i++) {
+		ids.push(makeId(Math.floor(Math.random()*15+3)));
+	}
 
-    function holderDive(list, color) {
-    	TweenLite.to(list.holder.node, 0.5, {attr: { fill: "rgba(0,0,0,0)" }});
-    	TweenLite.to(list.holder.node, 1.5, {
-    		ease: Expo.easeOut,
-    		transformOrigin: "10% 10%",
-    		scale: 1.05,
-    		x: -10,
-    		y: -10,
-    		attr: {
-    			fill: "rgba(0,0,0,0)",
-    			width: list.rows*list.pad,
-    			height: list.rows*list.pad
-    		}
-    	});
+	function init() {
 
-    	TweenLite.to(list.holder.node, 0.35, {
-    		ease: Expo.easeOut,
-    		opacity: 0,
-    		delay: 1.5,
-    		onComplete: function() {
-    			TweenLite.to(list.holder.node, 0, {
-    				transformOrigin: "0 0",
-    				scale: 1,
-    				x: 0,
-    				y: 0,
-    				opacity: 1,
-    				attr: {
-    					fill: color,
-    					"stroke-width": 0,
-    					width: list.size,
-    					height: list.size
-    				}
-    			});
-    		}
-    	});
-    }
+		ctx.globalCompositeOperation = 'destination-over';
+		ctx.canvas.width = width;
+		ctx.canvas.height = height;
 
-    function fadeGrid(list, d) {
-    	let delay = d || 0.25;
+		window.requestAnimationFrame(drawCircles);
+	}
 
-    	for (let r of list) {
-    		TweenLite.to(r.node, delay, { opacity: 0 });
-    	}
-    }
-
-    function holderCorner(list) {
-    	TweenLite.to(list.holder.node, 0.5, {
-    		attr: {
-    			ease: Expo.easeInOut,
-    			y: 0,
-    			x: 0,
-    			rx: "2",
-    			ry: "2"
-    		}
-    	});
-    }
-
-    function holderPrime(list, x, y) {
-    	TweenLite.to(list.holder.node, 0, {
-    		opacity: 0,
-    		transformOrigin: "50% 50%",
-    		attr: {
-    			y: y,
-    			x: x,
-    			fill: "white",
-    			"stroke-linecap": "round",
-    			stroke: "#ccc"
-    		}
-    	});
-    	TweenLite.to(list.holder.node, 0.6, {
-    		delay: 0.1,
-    		ease: Expo.easeOut,
-    		opacity: 1,
-    		scale: 1.1,
-    		transformOrigin: "50% 50%",
-    		attr: {
-    			rx: "2",
-    			"stroke-width": 1,
-    			ry: "2"
-    		}
-    	});
-    }
-
-    function holderPop(list, color) {
-    	list.holder.paper.append(list.holder);
-    	TweenMax.to(list.holder.node, 0.6, {
-    		delay: 0.58,
-    		scale: 2.5,
-    		transformOrigin: "50% 50%",
-    		repeat:1,
-    		ease: Expo.easeOut,
-    		yoyo: true,
-    		attr: {
-    			rx: "2",
-    			ry: "2",
-    		}
-    	});
-
-    	TweenLite.to(list.holder.node, 1, {
-    		delay: 1,
-    		scale: 1,
-    		attr: {
-    			"stroke-width": 0,
-    			fill: color
-    		}
-    	});
-
-    }
-
-    function populateGrid(list, colorChange) {
-    	let color = colorChange || "black";
-
-    	for (let r of list) {
-    		TweenLite.to(r.node, 0, {
-    			scale: 0.1,
-    			opacity: 0,
-    			attr: {
-    				fill: color,
-    				x: r.intX*r.pad,
-    				y: r.intY*r.pad
-    			}
-    		});
-
-    		TweenLite.to(r.node, 0.8, {
-    			delay: Math.max(r.intX,r.intY)*0.015,
-    			ease: Expo.easeInOut,
-    			opacity: 1,
-    			scale: 1,
-    			attr: {
-    				x: r.intX*r.pad,
-    				y: r.intY*r.pad
-    			}
-    		});
-    	}
-    }
+	function drawCircles() {
+		if (inc%60 == 0) {
+			often = Math.floor(Math.random() * 15 +3);
+		}
+		if (inc == 1440)	{
+			inc = 0;
+		}
+		inc++;
+		if (pulseUp) {
+			if (pul == 360) {
+				pulseUp = false;
+			} else {
+				pul++;
+			}
+		} else {
+			if (pul == 0) {
+				pulseUp = true;
+			} else {
+				pul--;
+			}
+		}
 
 
-    function collapseGrid(list) {
-    	for (let r of list) {
-    		TweenLite.to(r.node, 0.8, {
-    			ease: Expo.easeInOut,
-    			delay: ((r.intX + r.intY)*0.0004)+(Math.max(r.intX,r.intY)*0.004),
-    			//delay: (r.intX + r.intY)*0.0004,
-    			scale: 1,
-    			attr: {
-    				x: list.holder.attr("x"),
-    				y: list.holder.attr("y")
-    			}
-    		});
-    	}
-    }
+		ctx.save();
+		ctx.fillStyle = "rgba(245,245,245," + (0.6) + ")";
+   		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.fillStyle = "#111111";
+		ctx.translate(width/2,height/2);
+		ctx.rotate((Math.PI/180)*inc*0.25);
 
-    function expandGrid(list, color) {
-    	for (let r of list) {
-    		TweenLite.to(r.node, 0.8, {
-    			delay: ((r.intX + r.intY)*0.0002)+(Math.max(r.intX,r.intY)*0.004),
-    			//delay: Math.max(r.intX,r.intY)*0.004,
-    			ease: Expo.easeInOut,
-    			opacity: 1,
-    			scale: 1,
-    			attr: {
-    				x: r.intX*r.pad,
-    				y: r.intY*r.pad,
-    				fill: color
-    			}
-    		});
-    	}
-    }
+
+		for (let i = 0; i <= 89; i++) {
+			ctx.rotate((Math.PI/180)*4);
+			ctx.fillRect(0, 0, 60, 20);
+			ctx.strokeRect(0, 70+(pul*0.04), 2.5, 20+offsets[i]);
+			ctx.fillRect(0,200+(offsets[i]*3), 2.5, 3-offsets[i]+pul*0.1);
+
+			ctx.save();
+			ctx.rotate(-1*(Math.PI/180)*inc*0.35);
+			for (let x = 0; x < Math.floor(offsets[i]/2); x++) {
+				ctx.beginPath();
+				ctx.arc(0,180-(x*6)+offsets[x],2,0,2*Math.PI);
+				ctx.stroke();
+			}
+			ctx.restore();
+
+			ctx.beginPath();
+			if (!(i > 50 && i < 56)) {
+				ctx.save();
+				ctx.rotate(-1*(Math.PI/180)*inc*0.2);
+				ctx.arc(200,250,3,0,2*Math.PI);
+				ctx.stroke();
+				ctx.restore();
+
+			}
+
+
+			if (i > 50) {
+				ctx.save();
+				ctx.rotate(-1*(Math.PI/180)*inc*0.1);
+				ctx.beginPath();
+				ctx.arc(0,360-offsets[i]*4,offsets[i]*0.6,0,2*Math.PI);
+				ctx.stroke();
+				ctx.restore();
+			}
+
+			if (i%offsets[i] == 0 && i%2 == 0) {
+				ctx.beginPath();
+				ctx.moveTo(Math.pow(offsets[i+1], 2)+100+(pul*0.2), Math.pow(offsets[i], 2));
+				ctx.lineTo(Math.pow(offsets[i+1], 2)+200+(pul*0.2),Math.pow(offsets[i+1], 2));
+				ctx.lineTo(Math.pow(offsets[i+2], 2)+200,Math.pow(offsets[i+2], 2));
+				ctx.closePath();
+				ctx.stroke();
+
+				ctx.beginPath();
+				ctx.arc(200,270+pul*0.02+(offsets[i]*2),2,0,2*Math.PI);
+				ctx.fill();
+			}
+
+			if (i%offsets[i] == 0 || (300-i)%offsets[i] == 0) {
+				ctx.beginPath();
+				ctx.arc(0,150+offsets[i]*30-150,(pul)*0.0004*offsets[i]*5,0,2*Math.PI);
+				ctx.fill();
+			}
+
+			if (i%8) {
+				ctx.beginPath();
+				ctx.arc(0,50+offsets[i]*30-150,(pul)*0.0004*offsets[i],0,2*Math.PI);
+				ctx.fill();
+			}
+
+
+		}
+		ctx.translate(-width/2,-height/2);
+
+		ctx.stroke();
+		ctx.restore();
+
+
+		//ctx.restore();
+		//ctx.clearRect(0, 0, width, height);
+		if (circleRender)
+			window.requestAnimationFrame(drawCircles)
+	}
+
+	init();
 }
 
+
+var width = 414;
+var height = 500;
+
+var s = Snap("#data-vis");
+var g = s.group();
+
+var toggle = true;
+
+function generateGrid(quantity, size, padding, color, holder) {
+	let grid = [];
+	let rows = Math.floor(Math.sqrt(quantity));
+    s.width = rows*padding;
+	grid.rows = rows;
+	grid.pad = padding;
+	grid.size = size;
+	let hold = s.rect(holder.x, holder.y, size, size, 2).attr({ fill: color, opacity: 0 });
+    g.add(hold);
+    grid.holder = hold;
+	grid.holder.intX = Math.floor(rows/2)*padding;
+	grid.holder.intY = 0;
+
+
+	for (let x = 0; x < rows; x++ ) {
+		for (let y = 0; y < rows; y++) {
+			let r = null;
+			r = s.rect((x*padding), (y*padding), size, size, 2).attr({
+					fill: color
+			});
+			r.pad = padding;
+			r.intX = x;
+			r.intY = y;
+			r.intColor = color;
+			grid.push(r);
+            g.add(r);
+		}
+	}
+    g.attr("transform", "translate(" + 0 + ", 0)");
+	return grid;
+}
+
+var levels = [{color: "red"}, {color: "pink"}, {color: "teal"}, {color: "blue"}, {color: "orange"}, {color: "purple"}];
+var cLevel = 0;
+
+var rects = generateGrid(500, 15, 19, levels[cLevel].color, {x: 0, y: 0});
+
+s.rect(20, height-60, 40, 40, 6).attr({ fill: "pink"}).node.onclick = function () {
+	animateLevelDown(rects);
+};
+
+s.rect(width-60, height-60, 40, 40, 6).attr({ fill: "limegreen"}).node.onclick = function () {
+	holderPrime(rects, width/2-10, 450);
+	setTimeout(function() { animateLevelUp(rects) }, 400);
+};
+
+function animateLevelDown(list) {
+	cLevel--;
+	fadeGrid(list, 0)
+	collapseGrid(list);
+	setTimeout(function() { holderDive(list, levels[cLevel].color); }, 600);
+	setTimeout(function() { expandGrid(list, levels[cLevel].color); }, 650);
+
+}
+
+
+function animateLevelUp(list) {
+	collapseGrid(list);
+	holderPop(list, levels[cLevel+1].color)
+	setTimeout(function() { fadeGrid(list, 0) }, 400);
+	setTimeout(function() { holderCorner(list); }, 2000);
+	cLevel++;
+	setTimeout(function() {
+		populateGrid(list, levels[cLevel].color);
+		if (cLevel+1 == levels.length)
+			cLevel = 0;
+	}, 2480);
+
+}
+
+function holderDive(list, color) {
+	TweenLite.to(list.holder.node, 0.5, {attr: { fill: "rgba(0,0,0,0)" }});
+	TweenLite.to(list.holder.node, 1.5, {
+		ease: Expo.easeOut,
+		transformOrigin: "10% 10%",
+		scale: 1.05,
+		x: -10,
+		y: -10,
+		attr: {
+			fill: "rgba(0,0,0,0)",
+			width: list.rows*list.pad,
+			height: list.rows*list.pad
+		}
+	});
+
+	TweenLite.to(list.holder.node, 0.35, {
+		ease: Expo.easeOut,
+		opacity: 0,
+		delay: 1.5,
+		onComplete: function() {
+			TweenLite.to(list.holder.node, 0, {
+				transformOrigin: "0 0",
+				scale: 1,
+				x: 0,
+				y: 0,
+				opacity: 1,
+				attr: {
+					fill: color,
+					"stroke-width": 0,
+					width: list.size,
+					height: list.size
+				}
+			});
+		}
+	});
+}
+
+function fadeGrid(list, d) {
+	let delay = d || 0.25;
+
+	for (let r of list) {
+		TweenLite.to(r.node, delay, { opacity: 0 });
+	}
+}
+
+function holderCorner(list) {
+	TweenLite.to(list.holder.node, 0.5, {
+		attr: {
+			ease: Expo.easeInOut,
+			y: 0,
+			x: 0,
+			rx: "2",
+			ry: "2"
+		}
+	});
+}
+
+function holderPrime(list, x, y) {
+	TweenLite.to(list.holder.node, 0, {
+		opacity: 0,
+		transformOrigin: "50% 50%",
+		attr: {
+			y: y,
+			x: x,
+			fill: "white",
+			"stroke-linecap": "round",
+			stroke: "#ccc"
+		}
+	});
+	TweenLite.to(list.holder.node, 0.6, {
+		delay: 0.1,
+		ease: Expo.easeOut,
+		opacity: 1,
+		scale: 1.1,
+		transformOrigin: "50% 50%",
+		attr: {
+			rx: "2",
+			"stroke-width": 1,
+			ry: "2"
+		}
+	});
+}
+
+function holderPop(list, color) {
+	list.holder.paper.append(list.holder);
+	TweenMax.to(list.holder.node, 0.6, {
+		delay: 0.58,
+		scale: 2.5,
+		transformOrigin: "50% 50%",
+		repeat:1,
+		ease: Expo.easeOut,
+		yoyo: true,
+		attr: {
+			rx: "2",
+			ry: "2",
+		}
+	});
+
+	TweenLite.to(list.holder.node, 1, {
+		delay: 1,
+		scale: 1,
+		attr: {
+			"stroke-width": 0,
+			fill: color
+		}
+	});
+
+}
+
+function populateGrid(list, colorChange) {
+	let color = colorChange || "black";
+
+	for (let r of list) {
+		TweenLite.to(r.node, 0, {
+			scale: 0.1,
+			opacity: 0,
+			attr: {
+				fill: color,
+				x: r.intX*r.pad,
+				y: r.intY*r.pad
+			}
+		});
+
+		TweenLite.to(r.node, 0.8, {
+			delay: Math.max(r.intX,r.intY)*0.015,
+			ease: Expo.easeInOut,
+			opacity: 1,
+			scale: 1,
+			attr: {
+				x: r.intX*r.pad,
+				y: r.intY*r.pad
+			}
+		});
+	}
+}
+
+
+function collapseGrid(list) {
+	for (let r of list) {
+		TweenLite.to(r.node, 0.8, {
+			ease: Expo.easeInOut,
+			delay: ((r.intX + r.intY)*0.0004)+(Math.max(r.intX,r.intY)*0.004),
+			//delay: (r.intX + r.intY)*0.0004,
+			scale: 1,
+			attr: {
+				x: list.holder.attr("x"),
+				y: list.holder.attr("y")
+			}
+		});
+	}
+}
+
+function expandGrid(list, color) {
+	for (let r of list) {
+		TweenLite.to(r.node, 0.8, {
+			delay: ((r.intX + r.intY)*0.0002)+(Math.max(r.intX,r.intY)*0.004),
+			//delay: Math.max(r.intX,r.intY)*0.004,
+			ease: Expo.easeInOut,
+			opacity: 1,
+			scale: 1,
+			attr: {
+				x: r.intX*r.pad,
+				y: r.intY*r.pad,
+				fill: color
+			}
+		});
+	}
+}
+
+
+
+
+
+
+
 runCanvasHearts();
-runDataVis();
+runCircleCanvas();
+
+let circleRender = true;
 
 window.onresize = runCanvasHearts;
+
+window.addEventListener('scroll', function(e) {
+	if (window.pageYOffset >= (document.querySelector('.c-one').clientHeight + document.querySelector('.bottom-area').clientHeight - window.innerHeight-360)) {
+	//if (window.pageYOffset >= (5900)) {
+		console.log("hi");
+		document.querySelector(".env-top-section").classList.add("fixed");
+		//document.querySelector(".env-top-section").classList.add("fixed");
+		document.querySelector(".env-back").classList.add("fixed");
+	}
+	else {
+		document.querySelector(".env-top-section").classList.remove("fixed");
+		//document.querySelector(".env-top-section").classList.remove("fixed");
+		document.querySelector(".env-back").classList.remove("fixed");
+	}
+
+	if (window.pageYOffset > window.innerHeight*2) {
+		circleRender = false;
+	} else {
+		if (!circleRender) {
+			circleRender = true;
+			runCircleCanvas();
+		}
+	}
+});

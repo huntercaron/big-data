@@ -16,14 +16,33 @@
 
 <body>
 
-    <canvas id="canvas"></canvas>
+    <canvas id="heart-canvas"></canvas>
+    <div class="side-nav">
+        <div>
+            <svg class="heart-nav" xmlns="http://www.w3.org/2000/svg" width="27" height="20" viewBox="0 0 27 20" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <defs>
+                <path id="a" d="M13.3454514,6.67878477 L20.0242362,1.77635684e-15 L26.6909029,6.66666667 L13.3575695,20 L13.3454514,19.9878819 L13.3333333,20 L-2.26485497e-13,6.66666667 L6.66666667,5.90638649e-14 L13.3454514,6.67878477 Z"/>
+                <mask id="b" width="26.691" height="20" x="0" y="0" fill="white">
+                  <use xlink:href="#a"/>
+                </mask>
+              </defs>
+              <use fill="none" fill-rule="evenodd" stroke="#FF1C09" stroke-width="4" mask="url(#b)" xlink:href="#a"/>
+            </svg>
+        </div>
+
+        <div class="share-links">
+            <p class="mono share-link-text">Share: 	<a href="#" class="social">Facebook</a> <a href="#" class="social">Twitter</a> <a href="#" class="social">Instagram</a></p>
+        </div>
+
+    </div>
 
     <div class="container c-one">
 
         <header class="">
             <div class="header-text">
-                <h1>A love letter to <span class="em-dash">——</span> <span class="title-em">big data</span></h1>
+                <h1 class="title">A love letter to <span class="em-dash">—</span>— <span class="title-em">big data <img class="title-heart" src="images/heart.svg" alt="heart icon"/></span></h1>
             </div>
+            <canvas id="circle-canvas"></canvas>
         </header>
 
         <section class="flex-grid flex-center">
@@ -242,6 +261,8 @@
                         <svg id="data-vis" width="414">
                         </svg>
                     </div>
+                    <div class="flex-center t-fbtop">
+                    </div>
                 </div>
                 <div class="close-frame"></div>
             </div>
@@ -273,6 +294,7 @@
 
                         <div class="envelope-body">
                             <div class="end-egg-box">
+                                <h4 class="end-egg">Thanks for reading. Here's a joke:</h4>
                                 <h4 class="end-egg">What does a baby computer call it's father? Data.</h4>
                             </div>
                         </div>
@@ -319,19 +341,29 @@
         </div>
     </div>
 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+-->
     <script type="text/javascript">
-        window.addEventListener('scroll', function(e) {
-            if (window.pageYOffset >= (document.querySelector('.c-one').clientHeight + document.querySelector('.bottom-area').clientHeight - window.innerHeight-360)) {
-                console.log("hi");
-                document.querySelector(".env-top-section").classList.add("fixed");
-                document.querySelector(".env-back").classList.add("fixed");
-            }
-            else {
-                document.querySelector(".env-top-section").classList.remove("fixed");
-                document.querySelector(".env-back").classList.remove("fixed");
-            }
-        });
+
+    /*
+    var controller = new ScrollMagic.Controller();
+
+    new ScrollMagic.Scene({
+        duration: 500,    // the scene should last for a scroll distance of 100px
+        offset: 5567        // start this scene after scrolling for 50px
+    })
+    .setPin(".bottom-area") // pins the element for the the scene's duration
+    .addTo(controller);
+    */
+
+
+
+
     </script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
     <script src="js/main.js"></script>

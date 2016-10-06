@@ -11,14 +11,13 @@ html {
 }
 
 body {
-    position: relative;
-    min-height: 100%;
     background-color: #F5F5F5;
     font-size: 1.5em;
     line-height: 1.6;
     font-weight: 400;
     font-family: 'David Libre', serif;
     color: #222;
+    overflow-x: hidden;
 }
 
 .flex-grid {
@@ -48,7 +47,7 @@ body {
     padding-bottom: 30px;
 }
 
-#canvas {
+#heart-canvas {
     position: fixed;
     z-index: -100;
     width: 100%;
@@ -58,9 +57,126 @@ body {
 /* Header
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+header {
+    position: relative;
+}
+
 .header-text {
+    display: inline-block;
     margin-top: 40vh;
     margin-bottom: 60vh;
+    position: relative;
+    z-index: 10;
+}
+
+.title {
+    position: relative;
+    font-size: 5rem;
+    font-weight: 500;
+    box-shadow: 0px 0px 50px 30px rgba(245, 245, 245, 1);
+    background-color: rgba(245, 245, 245, 0.94);
+}
+
+.title:before {
+    content: ' ';
+    left: -1px;
+    top: -40px;
+    z-index: 100;
+    height: 160px;
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.04);
+
+    position: absolute;
+}
+
+
+
+.em-dash {
+    letter-spacing: -10px;
+}
+
+.title-em {
+    display: inline-block;
+    position: relative;
+    color: #EA4141;
+}
+
+.title-heart {
+    position: absolute;
+    right: -24px;
+    bottom: 45px;
+
+}
+
+#circle-canvas {
+    top: -10vh;
+    right: -450px;
+    width: 110vh;
+    height: 110vh;
+	perspective: 0;
+	-webkit-animation: subtle 15s infinite;
+    animation: subtle 15s infinite;
+	-webkit-animation-direction: alternate;
+    animation-direction: alternate;
+    position: absolute;
+    z-index: 1;
+    box-shadow: 0px 0px 60px 10px rgba(245, 245, 245, 1);
+}
+
+@keyframes subtle {
+    from {
+		transform: rotateX(10deg) rotateY(-20deg)
+
+	}
+    to {
+		transform: rotateX(0deg) rotateY(-10deg);
+	}
+}
+
+@-webkit-keyframes subtle {
+    from {
+		transform: rotateX(10deg) rotateY(-20eg);
+	}
+    to {
+		transform: rotateX(0deg) rotateY(0deg)
+	}
+}
+
+
+.side-nav {
+    position: fixed;
+    width: 10%;
+    height: 100%;
+}
+
+.heart-nav {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+
+.share-links .share-link-text {
+    position: absolute;
+    width: 50vh;
+    bottom: 24px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    left: 35px;
+    transform-origin: bottom left;
+    transform: rotate(-90deg);
+}
+
+.social {
+    margin-left: 14px;
+    text-decoration: none;
+    color: #a1a1a1;
+}
+
+.social:hover {
+    color: #666;
 }
 
 
@@ -295,6 +411,7 @@ label > .label-body {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .c-one {
+    position: relative;
     border: 1px solid rgba(0, 0, 0, 0.05);
     background-color: rgba(245, 245, 245, 0.6);
     padding-bottom: 520px;
@@ -490,6 +607,11 @@ label > .label-body {
 
 }
 
+.end-egg:first-child {
+    bottom: 216px;
+    color: rgba(255, 254, 249, 0.7);
+}
+
 .letter {
     max-width: 1140px;
     width: 92%;
@@ -528,6 +650,8 @@ label > .label-body {
 }
 
 .s-profile {
+    padding-left: 4%;
+    padding-right: 4%;
     padding-bottom: 40px;
 }
 
