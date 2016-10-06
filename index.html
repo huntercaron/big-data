@@ -178,14 +178,29 @@
 
                     <div class="name-calc">
                         <div class="name-input-box flex-center flex-c-vertical">
-                            <input class="name-input" type="text" name="name" placeholder="Enter Name…">
-                            <button class="name-button flex-c-vertical">
+                            <input id="name-input" class="name-input" onkeydown="if (event.keyCode == 13) { updateNameBreakdown(); return false; }" type="text" name="name" placeholder="Enter Name…">
+                            <button onclick="updateNameBreakdown()" class="name-button flex-c-vertical">
                                 <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
                                 </svg>
                             </button>
                         </div>
+                    </div>
+
+                    <div class="name-chart">
+                        <div class="chart-col flex-center">
+                            <h4 id="name-breakdown">|H|u|n|t|e|r <span class="divider">|</span>Caron</h4>
+                        </div>
+                        <div class="chart-col flex-center">
+                            <p class="mono light-text">Your name data usage:</p>
+                            <div class="byte-box flex-grid">
+
+                            </div>
+                            <h3 id="byte-count" class="center-textbox code">10</h3>
+                            <p class="light-text mono">bytes</p>
+                        </div>
+
                     </div>
 
                 </div>
@@ -362,7 +377,7 @@
                 <div class="flex-center center-textbox">
                     <h3>Dear Big Data,</h3>
                     <h3 class="letter-body center-textbox">Thank you. For all you have done and continue to do. It warms my heart when I see all you have done for me and the rest of the world. Thank you for being there for me when I need to take the last bus home, or when I needed to intelligently organize my photos. I am so lucky to have you in my life.</h3>
-                    <h3><span class="title-em">Hunter<img class="signature-heart" src="images/heart.svg" alt="heart icon"/></span></h3>
+                    <h3><span class="title-em fade-in">Hunter<img class="signature-heart" src="images/heart.svg" alt="heart icon"/></span></h3>
                 </div>
 
                 <div class="flex-center center-textbox">

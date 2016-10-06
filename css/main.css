@@ -335,6 +335,10 @@ p.mono {
     font-family: 'Source Code Pro', serif;
 }
 
+.divider {
+    color: #ccc;
+}
+
 /* Buttons
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .button,
@@ -795,7 +799,7 @@ label > .label-body {
 
 .name-input-box {
     margin-top: 40px;
-    max-width:
+
 }
 
 .name-input {
@@ -811,8 +815,74 @@ label > .label-body {
     width: 80px;
 }
 
+.name-chart {
+    max-width: 350px;
+    margin: auto;
+    margin-bottom: 40px;
+    opacity: 0;
+}
+
 .name-calc {
     padding-bottom: 30px;
+}
+
+.chart-col {
+    margin: 0;
+    padding: 20px;
+    border: 1px solid black;
+    transform-origin: top;
+
+    transform: scaleY(0.1);
+    transition: transform 0.3s ease-out;
+}
+
+.chart-col:last-child {
+    margin-top: -1px;
+}
+
+#name-breakdown {
+    letter-spacing: 1.4px;
+}
+
+.byte-box {
+    max-width: 108px;
+    margin: 10px auto 20px auto;
+    flex-wrap: wrap;
+}
+
+.byte {
+    width: 15px;
+    height: 15px;
+    background-color: #EA4141;
+    border-radius: 2px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+}
+
+#byte-count {
+    display: inline-block;
+    padding: 3px 6px;
+
+}
+
+
+.show-name-chart {
+    opacity: 1;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-duration: 0.6s;
+    -moz-animation-duration: 0.6s;
+    animation-duration: 0.6s;
+}
+
+.show-name-chart .chart-col {
+    transform: scaleY(1);
 }
 
 /* #003 - A profile */
@@ -843,8 +913,8 @@ label > .label-body {
     font-size: 1.2rem;
 }
 
-.scale-button:hover {
-    background-color: #efefef;
+button:hover {
+    background-color: #f3f3f3;
 }
 
 

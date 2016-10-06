@@ -147,7 +147,7 @@ function runCircleCanvas() {
 		ctx.fillStyle = "rgba(245,245,245," + (0.6) + ")";
    		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		ctx.fillStyle = "#111111";
-		
+
 		ctx.translate(width/2,height/2);
 		ctx.rotate((Math.PI/180)*inc*0.25);
 
@@ -513,6 +513,32 @@ function fullProcessUp() {
 	setTimeout(function() { animateLevelUp(rects) }, 400);
 }
 
+function updateNameBreakdown() {
+	console.log("no");
+	let name = document.getElementById("name-input").value;
+	let grid = "";
+	let nameDiv = '<span class="divider">|</span>';
+
+	if (name.length > 0) {
+		if (!nameEntered) {
+			document.querySelector(".name-chart").classList.add("show-name-chart");
+		}
+
+		for (let i = 0; i < name.length; i++) {
+			nameDiv += name.charAt(i) + '<span class="divider">|</span>';
+			grid += '<div class="byte"></div>';
+		}
+
+		document.getElementById("name-breakdown").innerHTML = nameDiv;
+		document.querySelector(".byte-box").innerHTML = grid;
+		animateValue("byte-count", 0, name.length, 400);
+
+
+		nameEntered = true;
+	}
+
+}
+
 
 
 
@@ -521,6 +547,7 @@ runCanvasHearts();
 runCircleCanvas();
 
 let circleRender = true;
+let nameEntered = false;
 
 window.onresize = runCanvasHearts;
 
