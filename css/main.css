@@ -54,6 +54,21 @@ body {
     height: 100%;
 }
 
+.fade-in {
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-duration: 0.6s;
+    -moz-animation-duration: 0.6s;
+    animation-duration: 0.6s;
+}
+
 /* Header
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -70,11 +85,17 @@ header {
 }
 
 .title {
+    opacity: 0;
+
     position: relative;
     font-size: 5rem;
     font-weight: 500;
     box-shadow: 0px 0px 50px 30px rgba(245, 245, 245, 1);
     background-color: rgba(245, 245, 245, 0.94);
+
+    -webkit-animation-delay: 1.3s;
+    -moz-animation-delay: 1.3s;
+    animation-delay: 1.3s;
 }
 
 .title:before {
@@ -96,9 +117,18 @@ header {
 }
 
 .title-em {
+    opacity: 0;
     display: inline-block;
     position: relative;
     color: #EA4141;
+
+    -webkit-animation-duration: 1.4s;
+    -moz-animation-duration: 1.4s;
+    animation-duration: 1.4s;
+
+    -webkit-animation-delay: 2s;
+    -moz-animation-delay: 2s;
+    animation-delay: 2s;
 }
 
 .title-heart {
@@ -142,11 +172,36 @@ header {
 	}
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
 
 .side-nav {
     position: fixed;
     width: 10%;
     height: 100%;
+
+    opacity: 0;
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+    animation-delay: 0.6s;
 }
 
 .heart-nav {
@@ -415,6 +470,11 @@ label > .label-body {
     border: 1px solid rgba(0, 0, 0, 0.05);
     background-color: rgba(245, 245, 245, 0.6);
     padding-bottom: 520px;
+
+    opacity: 0;
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+    animation-delay: 0.3s;
 }
 
 
@@ -644,6 +704,8 @@ label > .label-body {
 
 .signature-heart {
     position: relative;
+    width: 15px;
+    height: 15px;
     top: -12px;
 }
 
