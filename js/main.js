@@ -147,6 +147,7 @@ function runCircleCanvas() {
 		ctx.fillStyle = "rgba(245,245,245," + (0.6) + ")";
    		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		ctx.fillStyle = "#111111";
+		
 		ctx.translate(width/2,height/2);
 		ctx.rotate((Math.PI/180)*inc*0.25);
 
@@ -234,6 +235,7 @@ var height = 500;
 
 var s = Snap("#data-vis");
 var g = s.group();
+var currentTotal = 500;
 
 var toggle = true;
 
@@ -269,11 +271,12 @@ function generateGrid(quantity, size, padding, color, holder) {
 	return grid;
 }
 
-var levels = [{color: "red"}, {color: "pink"}, {color: "teal"}, {color: "blue"}, {color: "orange"}, {color: "purple"}];
+var levels = [{color: "#EA4141"}, {color: "#2b90d9"}, {color: "#ffc952"}, {color: "#e94e77"}, {color: "#8CD790"}, {color: "#6C49B8"}];
 var cLevel = 0;
 
 var rects = generateGrid(500, 15, 19, levels[cLevel].color, {x: 0, y: 0});
 
+/*
 s.rect(20, height-60, 40, 40, 6).attr({ fill: "pink"}).node.onclick = function () {
 	animateLevelDown(rects);
 };
@@ -282,6 +285,7 @@ s.rect(width-60, height-60, 40, 40, 6).attr({ fill: "limegreen"}).node.onclick =
 	holderPrime(rects, width/2-10, 450);
 	setTimeout(function() { animateLevelUp(rects) }, 400);
 };
+*/
 
 function animateLevelDown(list) {
 	cLevel--;
@@ -441,6 +445,11 @@ function populateGrid(list, colorChange) {
 			}
 		});
 	}
+	animateValue("size", currentTotal, currentTotal*500, 800);
+	animateValue("profiles", currentTotal, currentTotal*500, 800);
+	//animateValue("facebook", currentTotal/1700000000*100, (currentTotal*500)/1700000000*100, 800);
+
+	currentTotal = currentTotal*500;
 }
 
 
@@ -476,7 +485,33 @@ function expandGrid(list, color) {
 	}
 }
 
+function animateValue(id, start, end, duration) {
+    var obj = document.getElementById(id);
+    var range = end - start;
+    var minTimer = 50;
+    var stepTime = Math.abs(Math.floor(duration / range));
+    stepTime = Math.max(stepTime, minTimer);
+    var startTime = new Date().getTime();
+    var endTime = startTime + duration;
+    var timer;
 
+    function run() {
+        var now = new Date().getTime();
+        var remaining = Math.max((endTime - now) / duration, 0);
+        var value = Math.round((end - (remaining * range)) * 10) / 10;
+        obj.innerHTML = value;
+        if (value == end) {
+            clearInterval(timer);
+        }
+    }
+    var timer = setInterval(run, stepTime);
+    run();
+}
+
+function fullProcessUp() {
+	holderPrime(rects, width/2-10, 450);
+	setTimeout(function() { animateLevelUp(rects) }, 400);
+}
 
 
 
