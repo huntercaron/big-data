@@ -766,6 +766,10 @@ label > .label-body {
     padding-bottom: 2px;
 }
 
+.t-equals h4 {
+    font-size: 2.35rem;
+}
+
 /* #001 - Bits & Bytes */
 
 .t-low-level {

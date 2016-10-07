@@ -450,7 +450,6 @@ function populateGrid(list, colorChange) {
 	animateValue("size", prevTotal/10, currentTotalScaled/10, 800);
 	animateValue("profiles", prevTotal, currentTotal, 800);
 	document.getElementById("dataUnit").innerHTML = dataUnits[currentUnit];
-	//animateValue("facebook", currentTotal/1700000000*100, (currentTotal*500)/1700000000*100, 800);
 	if (currentUnit == 4) {
 		document.querySelector(".glitch-text").classList.add("fade-in");
 	}
@@ -533,8 +532,8 @@ function updateNameBreakdown() {
 		}
 
 		for (let i = 0; i < name.length; i++) {
-			nameDiv += name.charAt(i) + '<span class="divider">|</span>';
-			grid += '<div class="byte"></div>';
+			nameDiv += name.charAt(i) + '<span class="divider fade-in">|</span>';
+			grid += '<div class="byte fade-in"></div>';
 		}
 
 		document.getElementById("name-breakdown").innerHTML = nameDiv;
