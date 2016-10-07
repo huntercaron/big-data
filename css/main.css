@@ -336,7 +336,7 @@ p.mono {
 }
 
 .divider {
-    color: #ccc;
+    color: #ddd;
 }
 
 /* Buttons
@@ -355,7 +355,6 @@ input[type="button"] {
   font-weight: 600;
   line-height: 38px;
   letter-spacing: .1rem;
-  text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
@@ -886,6 +885,14 @@ label > .label-body {
 
 }
 
+.mb-box.byte-box {
+    max-width: 160px;
+}
+
+.mb-box.byte-box .byte {
+    background-color: #4f94e2;
+}
+
 
 .show-name-chart {
     opacity: 1;
@@ -909,7 +916,7 @@ label > .label-body {
 /* #003 - A profile */
 
 .t-fbtop {
-    padding-bottom: 30px;
+    padding-bottom: 60px;
 }
 
 .mono.breakdown {
@@ -930,8 +937,25 @@ label > .label-body {
 }
 
 .scale-button {
+    padding-left: 40px;
+    padding-right: 40px;
     margin-top: 30px;
     font-size: 1.2rem;
+}
+
+.disabled {
+    opacity: 0.3;
+    background-color: #eee;
+}
+
+.disabled:hover {
+    background-color: #eee;
+}
+
+.glitch-text {
+    opacity: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 button:hover {

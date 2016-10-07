@@ -235,6 +235,10 @@ var height = 500;
 var s = Snap("#data-vis");
 var g = s.group();
 var currentTotal = 500;
+var prevTotal = 0;
+var dataUnits = ["megabytes", "gigabytes", "terabytes", "petabytes", "exabytes", "zettabyte", "yottabyte"];
+var currentUnit = 0;
+var currentTotalScaled = 500;
 
 var toggle = true;
 
@@ -270,21 +274,10 @@ function generateGrid(quantity, size, padding, color, holder) {
 	return grid;
 }
 
-var levels = [{color: "#EA4141"}, {color: "#2b90d9"}, {color: "#ffc952"}, {color: "#e94e77"}, {color: "#8CD790"}, {color: "#6C49B8"}];
+var levels = [{color: "#4f94e2"}, {color: "#ffc952"}, {color: "#e94e77"}, {color: "#8CD790"}, {color: "#6C49B8"}, {color: "#2b90d9"}];
 var cLevel = 0;
 
 var rects = generateGrid(500, 15, 19, levels[cLevel].color, {x: 0, y: 0});
-
-/*
-s.rect(20, height-60, 40, 40, 6).attr({ fill: "pink"}).node.onclick = function () {
-	animateLevelDown(rects);
-};
-
-s.rect(width-60, height-60, 40, 40, 6).attr({ fill: "limegreen"}).node.onclick = function () {
-	holderPrime(rects, width/2-10, 450);
-	setTimeout(function() { animateLevelUp(rects) }, 400);
-};
-*/
 
 function animateLevelDown(list) {
 	cLevel--;
@@ -444,11 +437,28 @@ function populateGrid(list, colorChange) {
 			}
 		});
 	}
-	animateValue("size", currentTotal, currentTotal*500, 800);
-	animateValue("profiles", currentTotal, currentTotal*500, 800);
-	//animateValue("facebook", currentTotal/1700000000*100, (currentTotal*500)/1700000000*100, 800);
 
+	prevTotal = currentTotalScaled;
 	currentTotal = currentTotal*500;
+	currentTotalScaled = currentTotalScaled*500;
+
+	if (currentTotalScaled > 1000) {
+		currentUnit++;
+		currentTotalScaled = currentTotal/(Math.pow(1000, currentUnit));
+	}
+
+	animateValue("size", prevTotal/10, currentTotalScaled/10, 800);
+	animateValue("profiles", prevTotal, currentTotal, 800);
+	document.getElementById("dataUnit").innerHTML = dataUnits[currentUnit];
+	//animateValue("facebook", currentTotal/1700000000*100, (currentTotal*500)/1700000000*100, 800);
+	if (currentUnit == 4) {
+		document.querySelector(".glitch-text").classList.add("fade-in");
+	}
+
+	if (currentUnit == 6) {
+		document.querySelector(".scale-button").classList.add("disabled");
+	}
+
 }
 
 
@@ -457,7 +467,6 @@ function collapseGrid(list) {
 		TweenLite.to(r.node, 0.8, {
 			ease: Expo.easeInOut,
 			delay: ((r.intX + r.intY)*0.0004)+(Math.max(r.intX,r.intY)*0.004),
-			//delay: (r.intX + r.intY)*0.0004,
 			scale: 1,
 			attr: {
 				x: list.holder.attr("x"),
