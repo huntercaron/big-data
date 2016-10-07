@@ -707,6 +707,11 @@ label > .label-body {
     -webkit-transform: translateY(-30px);
 }
 
+.letter-joke {
+    transform: translateY(-350px);
+    -webkit-transform: translateY(-350px);
+}
+
 .letter-box {
     position: relative;
 }

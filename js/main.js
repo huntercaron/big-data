@@ -520,6 +520,10 @@ function fullProcessUp() {
 	setTimeout(function() { animateLevelUp(rects) }, 400);
 }
 
+function showJoke() {
+	document.querySelector(".letter").classList.toggle("letter-joke");
+}
+
 function updateNameBreakdown() {
 	console.log("no");
 	let name = document.getElementById("name-input").value;
