@@ -308,6 +308,7 @@ h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
 
 .mono {
     font-family: 'Source Code Pro', serif;
+    line-height: 1.5;
 }
 
 p.mono {
