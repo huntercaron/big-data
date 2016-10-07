@@ -555,17 +555,15 @@ window.onresize = runCanvasHearts;
 
 
 window.addEventListener('scroll', function(e) {
+
 	if (window.pageYOffset >= (document.querySelector('.c-one').clientHeight + document.querySelector('.bottom-area').clientHeight - window.innerHeight-360)) {
-	//if (window.pageYOffset >= (5900)) {
-		console.log("hi");
-		document.querySelector(".env-top-section").classList.add("fixed");
-		//document.querySelector(".env-top-section").classList.add("fixed");
-		document.querySelector(".env-back").classList.add("fixed");
+		document.querySelector(".letter").classList.add("letter-lift");
 	}
 	else {
-		document.querySelector(".env-top-section").classList.remove("fixed");
-		//document.querySelector(".env-top-section").classList.remove("fixed");
-		document.querySelector(".env-back").classList.remove("fixed");
+		document.querySelector(".letter").classList.remove("letter-lift");
+	}
+
+	if (window.pageYOffset > window.innerHeight*1.5) {
 	}
 
 	if (window.pageYOffset > window.innerHeight*1.5) {
