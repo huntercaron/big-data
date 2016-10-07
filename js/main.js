@@ -549,24 +549,11 @@ let circleRender = true;
 let nameEntered = false;
 
 window.onresize = runCanvasHearts;
-$(".bottom-area").stick_in_parent({offset_top: (window.innerHeight-589)});
-$(".env-top-box").stick_in_parent({offset_top: (window.innerHeight-320)});
-
-window.addEventListener('scroll', function(e) {
+//$(".bottom-area").stick_in_parent({offset_top: (window.innerHeight-589)});
+//$(".env-top-box").stick_in_parent({offset_top: (window.innerHeight-320)});
 
 
-	if (window.pageYOffset > window.innerHeight*1.5) {
-		circleRender = false;
-	} else {
-		if (!circleRender) {
-			circleRender = true;
-			runCircleCanvas();
-		}
-	}
-});
 
-
-/*
 window.addEventListener('scroll', function(e) {
 	if (window.pageYOffset >= (document.querySelector('.c-one').clientHeight + document.querySelector('.bottom-area').clientHeight - window.innerHeight-360)) {
 	//if (window.pageYOffset >= (5900)) {
@@ -590,4 +577,3 @@ window.addEventListener('scroll', function(e) {
 		}
 	}
 });
-*/
